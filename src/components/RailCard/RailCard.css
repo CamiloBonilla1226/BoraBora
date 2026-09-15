@@ -1,0 +1,33 @@
+.rail-card {
+  flex: none;
+  width: 126px;
+  appearance: none;
+  border: 1px solid var(--border);
+  background: var(--elev-1);
+  padding: 10px;
+  text-align: left;
+  cursor: pointer;
+}
+.rail-card .cupwrap {
+  width: 100%;
+  height: 64px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 8px;
+  overflow: hidden;
+}
+.rail-card .cupwrap svg {
+  height: 100%;
+}
+.rail-card h3 {
+  font-family: 'Manrope';
+  font-weight: 800;
+  font-size: 12px;
+  margin-bottom: 3px;
+}
+.rail-card .price {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--mint);
+  font-variant-numeric: tabular-nums;
+}

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import TopBar from './components/TopBar'
 import TabBar from './components/TabBar'
 import ProductSheet from './components/ProductSheet'
-import InicioScreen from './screens/InicioScreen'
+import Inicio from './screens/Inicio'
 import MenuScreen from './screens/MenuScreen'
 import CarritoScreen from './screens/CarritoScreen'
 import './App.css'
@@ -32,7 +32,7 @@ function App() {
       <TopBar />
 
       <main>
-        {activeTab === 'inicio' && <InicioScreen onOpenProduct={setOpenProductId} onGoToCategory={goToCategory} />}
+        {activeTab === 'inicio' && <Inicio onOpenProduct={setOpenProductId} onGoToCategory={goToCategory} />}
         {activeTab === 'menu' && (
           <MenuScreen activeCategory={activeCategory} onChangeCategory={setActiveCategory} onOpenProduct={setOpenProductId} />
         )}
