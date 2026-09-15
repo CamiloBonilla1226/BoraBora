@@ -1,0 +1,58 @@
+.card {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  width: 100%;
+  text-align: left;
+  appearance: none;
+  cursor: pointer;
+  padding: 11px;
+  background: var(--elev-1);
+  border: 1px solid var(--border);
+  margin-bottom: 9px;
+}
+.card:hover {
+  border-color: var(--border-strong);
+}
+.card:focus-visible {
+  outline: 2px solid var(--mint);
+  outline-offset: -2px;
+}
+.card .cupwrap {
+  width: 54px;
+  height: 68px;
+  overflow: hidden;
+}
+.card.is-out .cupwrap svg {
+  filter: grayscale(1) brightness(0.6);
+}
+.card-body {
+  flex: 1;
+  min-width: 0;
+}
+.card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+.card-body h3 {
+  font-family: 'Manrope';
+  font-weight: 800;
+  font-size: 13.5px;
+}
+.card.is-out .price {
+  color: var(--text-faint);
+}
+.contains {
+  font-size: 11.5px;
+  color: var(--text-dim);
+  line-height: 1.4;
+  margin-bottom: 7px;
+}
+.tapcue {
+  flex: none;
+  color: var(--text-faint);
+  font-size: 15px;
+}

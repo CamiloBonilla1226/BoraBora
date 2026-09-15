@@ -3,7 +3,7 @@ import TopBar from './components/TopBar'
 import TabBar from './components/TabBar'
 import ProductSheet from './components/ProductSheet'
 import Inicio from './screens/Inicio'
-import MenuScreen from './screens/MenuScreen'
+import Menu from './screens/Menu'
 import CarritoScreen from './screens/CarritoScreen'
 import './App.css'
 
@@ -34,7 +34,7 @@ function App() {
       <main>
         {activeTab === 'inicio' && <Inicio onOpenProduct={setOpenProductId} onGoToCategory={goToCategory} />}
         {activeTab === 'menu' && (
-          <MenuScreen activeCategory={activeCategory} onChangeCategory={setActiveCategory} onOpenProduct={setOpenProductId} />
+          <Menu activeCategory={activeCategory} onChangeCategory={setActiveCategory} onOpenProduct={setOpenProductId} />
         )}
         {activeTab === 'carrito' && <CarritoScreen cart={cart} />}
       </main>
