@@ -1,4 +1,5 @@
-import logo from '../assets/logo-borabora.png'
+import logo from '../../assets/logo-borabora.png'
+import './TopBar.css'
 
 export default function TopBar() {
   return (

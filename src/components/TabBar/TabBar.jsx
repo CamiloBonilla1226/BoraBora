@@ -1,4 +1,5 @@
-import { IconHome, IconMenu, IconCart } from './Icons'
+import { IconHome, IconMenu, IconCart } from '../Icons'
+import './TabBar.css'
 
 export default function TabBar({ activeTab, onChangeTab, cartCount }) {
   return (

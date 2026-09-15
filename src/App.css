@@ -1,19 +1,3 @@
-:root {
-  --bg: #0a0a10;
-  --elev-1: #131319;
-  --elev-2: #191922;
-  --border: rgba(255, 255, 255, 0.08);
-  --border-strong: rgba(255, 255, 255, 0.15);
-  --text: #f2f1f7;
-  --text-dim: #9493a7;
-  --text-faint: #57566a;
-  --mint: #29ffb0;
-  --mint-soft: rgba(41, 255, 176, 0.1);
-  --mint-ink: #04140d;
-  --pink: #ff2f7e;
-  --pink-soft: rgba(255, 47, 126, 0.12);
-}
-
 h1,
 h2,
 h3 {
@@ -37,43 +21,6 @@ p {
   flex-direction: column;
   position: relative;
   margin: 0 auto;
-}
-
-/* ================= TOP BAR ================= */
-.topbar {
-  position: sticky;
-  top: env(safe-area-inset-top, 0px);
-  z-index: 30;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 16px;
-  background: var(--bg);
-  border-bottom: 1px solid var(--border);
-}
-.topbar .logo-img {
-  height: 34px;
-  width: auto;
-  flex: none;
-  display: block;
-}
-.openpill {
-  margin-left: auto;
-  flex: none;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 10.5px;
-  font-weight: 700;
-  color: var(--mint);
-  border: 1px solid var(--border-strong);
-  padding: 6px 9px;
-}
-.openpill .dot {
-  width: 5px;
-  height: 5px;
-  background: var(--mint);
-  box-shadow: 0 0 5px var(--mint);
 }
 
 main {
@@ -434,74 +381,6 @@ main {
   color: var(--text-faint);
   line-height: 1.6;
   text-align: center;
-}
-
-/* ================= TAB BAR ================= */
-.tabbar {
-  position: fixed;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: 0;
-  width: 100%;
-  max-width: 430px;
-  z-index: 40;
-  display: flex;
-  background: var(--elev-1);
-  border-top: 1px solid var(--border-strong);
-  padding-bottom: env(safe-area-inset-bottom, 0px);
-}
-.tabbar button {
-  flex: 1;
-  appearance: none;
-  border: 0;
-  background: none;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 5px;
-  padding: 11px 4px 9px;
-  color: var(--text-faint);
-  position: relative;
-}
-.tabbar button .ico {
-  width: 20px;
-  height: 20px;
-}
-.tabbar button span {
-  font-size: 9.5px;
-  font-weight: 700;
-  letter-spacing: 0.2px;
-}
-.tabbar button.active {
-  color: var(--mint);
-}
-.tabbar button.active::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 18%;
-  right: 18%;
-  height: 2px;
-  background: var(--mint);
-}
-.tab-badge {
-  position: absolute;
-  top: 5px;
-  right: 22%;
-  min-width: 15px;
-  height: 15px;
-  padding: 0 3px;
-  background: var(--pink);
-  color: #fff;
-  font-size: 9px;
-  font-weight: 800;
-  display: grid;
-  place-items: center;
-  line-height: 1;
-}
-.tab-badge[hidden] {
-  display: none;
 }
 
 /* ================= PRODUCT SHEET ================= */

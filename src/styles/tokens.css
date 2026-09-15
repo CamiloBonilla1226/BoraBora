@@ -1,0 +1,15 @@
+:root {
+  --bg: #0a0a10;
+  --elev-1: #131319;
+  --elev-2: #191922;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.15);
+  --text: #f2f1f7;
+  --text-dim: #9493a7;
+  --text-faint: #57566a;
+  --mint: #29ffb0;
+  --mint-soft: rgba(41, 255, 176, 0.1);
+  --mint-ink: #04140d;
+  --pink: #ff2f7e;
+  --pink-soft: rgba(255, 47, 126, 0.12);
+}
