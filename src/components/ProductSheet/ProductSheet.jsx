@@ -1,6 +1,10 @@
-import { useEffect, useState } from 'react'
-import CupArt from './CupArt'
-import { PRODUCTS, fmt } from '../data/products'
+import { useEffect, useRef, useState } from 'react'
+import CupArt from '../CupArt'
+import { PRODUCTS, fmt } from '../../data/products'
+import './ProductSheet.css'
+
+const FOCUSABLE_SELECTOR =
+  'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])'
 
 export default function ProductSheet({ productId, onClose, onAdd }) {
   const product = PRODUCTS[productId]
@@ -10,15 +14,43 @@ export default function ProductSheet({ productId, onClose, onAdd }) {
   const [selectedAdds, setSelectedAdds] = useState(new Set(product.adds.filter((a) => a.sel).map((a) => a.l)))
   const [added, setAdded] = useState(false)
 
+  const sheetRef = useRef(null)
+  const closeBtnRef = useRef(null)
+
   useEffect(() => {
+    const previouslyFocused = document.activeElement
     document.body.style.overflow = 'hidden'
+    closeBtnRef.current?.focus()
+
     function onKeyDown(e) {
-      if (e.key === 'Escape') onClose()
+      if (e.key === 'Escape') {
+        onClose()
+        return
+      }
+      if (e.key !== 'Tab' || !sheetRef.current) return
+
+      const focusable = [...sheetRef.current.querySelectorAll(FOCUSABLE_SELECTOR)]
+      if (focusable.length === 0) return
+      const first = focusable[0]
+      const last = focusable[focusable.length - 1]
+
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault()
+        last.focus()
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault()
+        first.focus()
+      } else if (!sheetRef.current.contains(document.activeElement)) {
+        e.preventDefault()
+        first.focus()
+      }
     }
+
     document.addEventListener('keydown', onKeyDown)
     return () => {
       document.body.style.overflow = ''
       document.removeEventListener('keydown', onKeyDown)
+      previouslyFocused?.focus?.()
     }
   }, [onClose])
 
@@ -37,6 +69,7 @@ export default function ProductSheet({ productId, onClose, onAdd }) {
 
   function handleAdd() {
     onAdd({
+      productId: product.id,
       name: product.name,
       size: selectedSize,
       adds: product.adds.filter((a) => selectedAdds.has(a.l)).map((a) => a.l),
@@ -49,10 +82,10 @@ export default function ProductSheet({ productId, onClose, onAdd }) {
   return (
     <div className="overlay">
       <div className="backdrop" onClick={onClose}></div>
-      <div className="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetName">
+      <div className="sheet" ref={sheetRef} role="dialog" aria-modal="true" aria-labelledby="sheetName">
         <div className="sheet-scroll">
           <div className="sheet-hero">
-            <button className="sheet-close" onClick={onClose} aria-label="Cerrar">
+            <button ref={closeBtnRef} className="sheet-close" onClick={onClose} aria-label="Cerrar">
               ✕
             </button>
             <div className="cupwrap">
