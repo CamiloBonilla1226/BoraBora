@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import CupArt from '../CupArt'
 import { PRODUCTS, fmt } from '../../data/products'
 import { useCart } from '../../context/CartContext'
+import { useDisponibilidad } from '../../context/DisponibilidadContext'
 import { useNow } from '../../utils/useNow'
 import { isPromoDay } from '../../utils/schedule'
 import { priceCartItems, PROMO_LABEL_HALF, PROMO_LABEL_FREE } from '../../utils/promo'
@@ -16,11 +17,21 @@ const DRAG_ANIMATION_MS = 220
 
 export default function ProductSheet({ productId, onClose }) {
   const { items, addItem } = useCart()
+  const { isAvailable } = useDisponibilidad()
   const product = PRODUCTS[productId]
+
+  // Adiciones que la hoja de disponibilidad (o, si no responde, el `av` de
+  // products.js como respaldo) marca como activas — las demás ni siquiera
+  // se muestran como opción.
+  const visibleAdds = useMemo(
+    () => product.adds.filter((a) => isAvailable(a.id, a.av)),
+    [product.adds, isAvailable],
+  )
+
   const [selectedSize, setSelectedSize] = useState(
     product.sizes ? (product.sizes.find((s) => s.sel) ?? product.sizes[0]).l : null,
   )
-  const [selectedAdds, setSelectedAdds] = useState(new Set(product.adds.filter((a) => a.sel).map((a) => a.l)))
+  const [selectedAdds, setSelectedAdds] = useState(new Set(visibleAdds.filter((a) => a.sel).map((a) => a.l)))
   const [added, setAdded] = useState(false)
 
   const now = useNow()
@@ -184,7 +195,7 @@ export default function ProductSheet({ productId, onClose }) {
 
   const total =
     (product.sizes ? product.sizes.find((s) => s.l === selectedSize).p : product.base) +
-    product.adds.filter((a) => selectedAdds.has(a.l)).reduce((sum, a) => sum + a.p, 0)
+    visibleAdds.filter((a) => selectedAdds.has(a.l)).reduce((sum, a) => sum + a.p, 0)
 
   // Qué le tocaría a ESTE granizado (con el tamaño y las adiciones ya
   // elegidas) si se agrega al carrito ahora mismo.
@@ -213,7 +224,7 @@ export default function ProductSheet({ productId, onClose }) {
       productId: product.id,
       name: product.name,
       size: selectedSize,
-      adds: product.adds.filter((a) => selectedAdds.has(a.l)).map((a) => a.l),
+      adds: visibleAdds.filter((a) => selectedAdds.has(a.l)).map((a) => a.l),
       total,
     })
     setAdded(true)
@@ -276,17 +287,15 @@ export default function ProductSheet({ productId, onClose }) {
                 <span className="group-hint">cada una suma al total</span>
               </div>
               <div className="opt-row">
-                {product.adds.map((a) => (
+                {visibleAdds.map((a) => (
                   <button
                     key={a.l}
                     type="button"
                     className="opt"
                     aria-pressed={selectedAdds.has(a.l)}
-                    disabled={!a.av}
                     onClick={() => toggleAdd(a.l)}
                   >
                     {a.l} · +{fmt(a.p)}
-                    {!a.av ? ' · agotado' : ''}
                   </button>
                 ))}
               </div>

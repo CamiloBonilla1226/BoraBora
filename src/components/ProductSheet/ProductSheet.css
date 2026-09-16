@@ -138,14 +138,6 @@
   color: var(--mint);
   background: var(--mint-soft);
 }
-.opt:disabled {
-  color: var(--text-faint);
-  border-style: dashed;
-  text-decoration: line-through;
-  text-decoration-color: var(--text-faint);
-  background: transparent;
-  cursor: not-allowed;
-}
 
 .sheet-promo-current {
   flex: none;

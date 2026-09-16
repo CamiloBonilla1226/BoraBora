@@ -4,11 +4,16 @@ import StoreInfo from '../components/StoreInfo'
 import { PRODUCTS, FEATURED_IDS, CATEGORIES } from '../data/products'
 import { useNow } from '../utils/useNow'
 import { isPromoDay } from '../utils/schedule'
+import { useDisponibilidad } from '../context/DisponibilidadContext'
 import logo from '../assets/logo-borabora.png'
 
 export default function Inicio({ onOpenProduct, onGoToCategory }) {
   const now = useNow()
   const promoToday = isPromoDay(now)
+  const { isAvailable } = useDisponibilidad()
+  const featuredProducts = FEATURED_IDS.filter((id) => isAvailable(id, PRODUCTS[id].available)).map(
+    (id) => PRODUCTS[id],
+  )
 
   return (
     <section className="screen" id="tab-inicio">
@@ -33,10 +38,14 @@ export default function Inicio({ onOpenProduct, onGoToCategory }) {
         </span>
       </div>
 
-      <div className="block-title">
-        <h2>Más pedidos</h2>
-      </div>
-      <FeaturedCarousel products={FEATURED_IDS.map((id) => PRODUCTS[id])} onOpen={onOpenProduct} />
+      {featuredProducts.length > 0 && (
+        <>
+          <div className="block-title">
+            <h2>Más pedidos</h2>
+          </div>
+          <FeaturedCarousel products={featuredProducts} onOpen={onOpenProduct} />
+        </>
+      )}
 
       <div className="block-title">
         <h2>Categorías</h2>
