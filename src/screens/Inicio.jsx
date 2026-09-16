@@ -1,9 +1,14 @@
 import RailCard from '../components/RailCard'
 import CategoryTile from '../components/CategoryTile'
 import { PRODUCTS, FEATURED_IDS, CATEGORIES } from '../data/products'
+import { useNow } from '../utils/useNow'
+import { isPromoDay } from '../utils/schedule'
 import logo from '../assets/logo-borabora.png'
 
 export default function Inicio({ onOpenProduct, onGoToCategory }) {
+  const now = useNow()
+  const promoToday = isPromoDay(now)
+
   return (
     <section className="screen" id="tab-inicio">
       <div className="hero-logo">
@@ -17,9 +22,13 @@ export default function Inicio({ onOpenProduct, onGoToCategory }) {
       </div>
 
       <div className="promo-teaser">
-        <span className="tag">HOY</span>
+        <span className="tag">{promoToday ? 'HOY' : 'PROMO'}</span>
         <span style={{ flex: 1 }}>
-          <strong>Martes y miércoles de promo</strong>
+          <strong>
+            {promoToday
+              ? 'Martes y miércoles de promo'
+              : 'Recuerda que los martes y miércoles hay promo'}
+          </strong>
           <span>2do granizado al 50% de descuento</span>
         </span>
       </div>

@@ -33,3 +33,11 @@
   background: var(--mint);
   box-shadow: 0 0 5px var(--mint);
 }
+.openpill-closed {
+  color: var(--text-dim);
+  border-color: var(--border);
+}
+.openpill-closed .dot {
+  background: var(--pink);
+  box-shadow: 0 0 5px var(--pink);
+}
