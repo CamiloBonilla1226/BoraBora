@@ -9,6 +9,12 @@ const LATE_NIGHT_DAYS = [4, 5, 6, 0]
 
 const OPEN_HOUR = 17 // 5pm, igual todos los días
 
+/** Texto del horario para mostrar en la app (sección "Nosotros"). */
+export const SCHEDULE_TEXT = [
+  { days: 'Jueves a domingo', hours: '5:00 pm – 1:00 am' },
+  { days: 'Lunes a miércoles', hours: '5:00 pm – 11:00 pm' },
+]
+
 /** true si `date` cae en martes o miércoles (día de promo). */
 export function isPromoDay(date = new Date()) {
   return PROMO_DAYS.includes(date.getDay())

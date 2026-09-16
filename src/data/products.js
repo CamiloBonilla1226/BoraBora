@@ -5,7 +5,9 @@ export const CATEGORIES = [
   { key: 'licor', label: 'Licor', countLabel: 'Shots y botellas' },
 ]
 
-export const FEATURED_IDS = ['mango', 'michBora', 'pecTropical']
+// Selección temporal/aleatoria para probar el carrusel de "Más pedidos" —
+// pendiente reemplazar por los productos reales que indique el negocio.
+export const FEATURED_IDS = ['mango', 'michBora', 'pecTropical', 'shot', 'maracuya']
 
 // Catálogo de adiciones por categoría: todos los granizados manejan las
 // mismas adiciones entre sí, igual que todas las micheladas y todas las

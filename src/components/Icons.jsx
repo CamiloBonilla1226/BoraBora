@@ -61,3 +61,40 @@ export function IconCart(props) {
     </svg>
   )
 }
+
+export function IconLocation(props) {
+  return (
+    <svg className="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" {...props}>
+      <path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21Z" />
+      <circle cx="12" cy="9.5" r="2.4" />
+    </svg>
+  )
+}
+
+export function IconWhatsapp(props) {
+  return (
+    <svg className="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" {...props}>
+      <path d="M4 20l1.3-4.4A8 8 0 1 1 8.6 19L4 20Z" />
+      <path d="M8.5 9.3c0 3.6 2.9 6.4 6.2 6.4.9 0 1.1-.6 1.1-1.1v-1.2c0-.3-.3-.5-.6-.4l-1.6.5a.6.6 0 0 1-.6-.2l-1.4-1.6a.5.5 0 0 1 0-.7l.6-.7a.5.5 0 0 0 .1-.6L11 7.3a.5.5 0 0 0-.6-.3H9.2c-.4 0-.7.4-.7.9Z" />
+    </svg>
+  )
+}
+
+export function IconInstagram(props) {
+  return (
+    <svg className="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" {...props}>
+      <rect x="3.5" y="3.5" width="17" height="17" rx="4.5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17" cy="7" r="0.9" fill="currentColor" stroke="none" />
+    </svg>
+  )
+}
+
+export function IconClock(props) {
+  return (
+    <svg className="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" {...props}>
+      <circle cx="12" cy="12" r="8.5" />
+      <path d="M12 7.5V12l3 2" />
+    </svg>
+  )
+}

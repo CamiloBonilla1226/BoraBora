@@ -1,5 +1,6 @@
-import RailCard from '../components/RailCard'
+import FeaturedCarousel from '../components/FeaturedCarousel'
 import CategoryTile from '../components/CategoryTile'
+import StoreInfo from '../components/StoreInfo'
 import { PRODUCTS, FEATURED_IDS, CATEGORIES } from '../data/products'
 import { useNow } from '../utils/useNow'
 import { isPromoDay } from '../utils/schedule'
@@ -17,7 +18,7 @@ export default function Inicio({ onOpenProduct, onGoToCategory }) {
 
       <div className="sec-head">
         <div className="eyebrow">Carta digital</div>
-        <h1>¿Qué se te antoja hoy?</h1>
+        <h1>¿Granizado o miedo?</h1>
         <p className="lead">Explora la carta por categoría o entra directo a lo más pedido.</p>
       </div>
 
@@ -36,11 +37,7 @@ export default function Inicio({ onOpenProduct, onGoToCategory }) {
       <div className="block-title">
         <h2>Más pedidos</h2>
       </div>
-      <div className="rail">
-        {FEATURED_IDS.map((id) => (
-          <RailCard key={id} product={PRODUCTS[id]} onOpen={onOpenProduct} />
-        ))}
-      </div>
+      <FeaturedCarousel products={FEATURED_IDS.map((id) => PRODUCTS[id])} onOpen={onOpenProduct} />
 
       <div className="block-title">
         <h2>Categorías</h2>
@@ -50,6 +47,11 @@ export default function Inicio({ onOpenProduct, onGoToCategory }) {
           <CategoryTile key={c.key} category={c} onOpen={onGoToCategory} />
         ))}
       </div>
+
+      <div className="block-title">
+        <h2>Nosotros</h2>
+      </div>
+      <StoreInfo />
     </section>
   )
 }

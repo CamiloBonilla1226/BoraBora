@@ -106,17 +106,6 @@ main {
   font-size: 14px;
 }
 
-.rail {
-  display: flex;
-  gap: 10px;
-  overflow-x: auto;
-  margin: 0 -16px 22px;
-  padding: 0 16px 4px;
-  scrollbar-width: none;
-}
-.rail::-webkit-scrollbar {
-  display: none;
-}
 .cat-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;

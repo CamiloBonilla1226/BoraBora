@@ -1,0 +1,38 @@
+.carousel-track {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  margin: 0 -16px;
+  padding: 0 16px 4px;
+  scrollbar-width: none;
+}
+.carousel-track::-webkit-scrollbar {
+  display: none;
+}
+.carousel-track > * {
+  scroll-snap-align: start;
+}
+
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+  margin-bottom: 22px;
+}
+.carousel-dot {
+  appearance: none;
+  border: 0;
+  padding: 0;
+  width: 6px;
+  height: 6px;
+  background: var(--border-strong);
+  cursor: pointer;
+  transition: width 0.2s, background 0.2s;
+}
+.carousel-dot.active {
+  width: 16px;
+  background: var(--mint);
+}
