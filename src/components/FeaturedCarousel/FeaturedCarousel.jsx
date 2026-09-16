@@ -50,7 +50,7 @@ export default function FeaturedCarousel({ products, onOpen }) {
 
   return (
     <div className="carousel">
-      <div className="carousel-track" ref={trackRef}>
+      <div className="carousel-track" ref={trackRef} data-no-swipe>
         {products.map((product) => (
           <RailCard key={product.id} product={product} onOpen={onOpen} />
         ))}
