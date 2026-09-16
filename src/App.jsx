@@ -14,8 +14,14 @@ function App() {
   const [activeTab, setActiveTab] = useState('inicio')
   const [activeCategory, setActiveCategory] = useState('granizados')
   const [openProductId, setOpenProductId] = useState(null)
+  // Sentido de la última transición, para animar la pantalla que entra
+  // desde el lado correcto. Empieza en null para que la primera pantalla no
+  // aparezca con animación.
+  const [direction, setDirection] = useState(null)
 
   function changeTab(tab) {
+    if (tab === activeTab) return
+    setDirection(TAB_ORDER.indexOf(tab) > TAB_ORDER.indexOf(activeTab) ? 'forward' : 'backward')
     setActiveTab(tab)
     window.scrollTo(0, 0)
   }
@@ -45,11 +51,16 @@ function App() {
       <TopBar />
 
       <main {...swipeHandlers}>
-        {activeTab === 'inicio' && <Inicio onOpenProduct={setOpenProductId} onGoToCategory={goToCategory} />}
-        {activeTab === 'menu' && (
-          <Menu activeCategory={activeCategory} onChangeCategory={setActiveCategory} onOpenProduct={setOpenProductId} />
-        )}
-        {activeTab === 'carrito' && <Carrito />}
+        <div
+          key={activeTab}
+          className={direction ? `screen-transition screen-transition-${direction}` : undefined}
+        >
+          {activeTab === 'inicio' && <Inicio onOpenProduct={setOpenProductId} onGoToCategory={goToCategory} />}
+          {activeTab === 'menu' && (
+            <Menu activeCategory={activeCategory} onChangeCategory={setActiveCategory} onOpenProduct={setOpenProductId} />
+          )}
+          {activeTab === 'carrito' && <Carrito />}
+        </div>
       </main>
 
       <TabBar activeTab={activeTab} onChangeTab={changeTab} />

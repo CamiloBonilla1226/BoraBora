@@ -26,6 +26,47 @@ p {
 main {
   flex: 1;
   padding: 16px 16px calc(96px + env(safe-area-inset-bottom, 0px));
+  overflow-x: hidden;
+}
+
+/* Transición al cambiar de pantalla (por swipe o tocando el TabBar): la
+   pantalla que entra se desliza suavemente desde el lado por el que
+   "llegó" en vez de aparecer de golpe. */
+@keyframes screen-slide-from-right {
+  from {
+    transform: translateX(28px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+@keyframes screen-slide-from-left {
+  from {
+    transform: translateX(-28px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+.screen-transition {
+  animation-duration: 220ms;
+  animation-timing-function: ease;
+  animation-fill-mode: both;
+}
+.screen-transition-forward {
+  animation-name: screen-slide-from-right;
+}
+.screen-transition-backward {
+  animation-name: screen-slide-from-left;
+}
+@media (prefers-reduced-motion: reduce) {
+  .screen-transition {
+    animation: none;
+  }
 }
 
 /* ================= SECTION HEAD ================= */
