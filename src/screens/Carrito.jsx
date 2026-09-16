@@ -1,12 +1,12 @@
 import { useMemo } from 'react'
-import { IconCart } from '../components/Icons'
+import { IconCart, IconTrash } from '../components/Icons'
 import { useCart } from '../context/CartContext'
 import { fmt } from '../data/products'
 import { priceCartItems } from '../utils/promo'
 import { useNow } from '../utils/useNow'
 
 export default function Carrito() {
-  const { items } = useCart()
+  const { items, removeItem } = useCart()
   const now = useNow()
 
   const pricedItems = useMemo(() => priceCartItems(items, now), [items, now])
@@ -30,18 +30,26 @@ export default function Carrito() {
           </div>
         ) : (
           <>
-            {pricedItems.map((item, i) => {
+            {pricedItems.map((item) => {
               const extra = []
               if (item.size) extra.push('Tamaño ' + item.size)
               if (item.adds.length) extra.push(item.adds.join(', '))
               return (
-                <div className="cart-item" key={i}>
+                <div className="cart-item" key={item.id}>
                   <div className="row1">
                     <h3>{item.name}</h3>
                     <div className="price">
                       {item.promoLabel && <span className="price-was">{fmt(item.total)}</span>}
                       {fmt(item.finalPrice)}
                     </div>
+                    <button
+                      type="button"
+                      className="cart-item-remove"
+                      onClick={() => removeItem(item.id)}
+                      aria-label={`Quitar ${item.name} del carrito`}
+                    >
+                      <IconTrash />
+                    </button>
                   </div>
                   <p>
                     {extra.join(' · ') || 'Sin adiciones'}

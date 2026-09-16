@@ -8,6 +8,8 @@ function cartReducer(state, action) {
   switch (action.type) {
     case 'ADD_ITEM':
       return { ...state, items: [...state.items, action.item] }
+    case 'REMOVE_ITEM':
+      return { ...state, items: state.items.filter((item) => item.id !== action.id) }
     default:
       return state
   }
@@ -22,7 +24,8 @@ export function CartProvider({ children }) {
       items: state.items,
       count: state.items.length,
       total,
-      addItem: (item) => dispatch({ type: 'ADD_ITEM', item }),
+      addItem: (item) => dispatch({ type: 'ADD_ITEM', item: { ...item, id: crypto.randomUUID() } }),
+      removeItem: (id) => dispatch({ type: 'REMOVE_ITEM', id }),
     }
   }, [state.items])
 

@@ -2,7 +2,7 @@ import { IconLocation, IconWhatsapp, IconInstagram, IconClock } from '../Icons'
 import { SCHEDULE_TEXT } from '../../utils/schedule'
 import './StoreInfo.css'
 
-const WHATSAPP_NUMBER = '3147622739'
+const WHATSAPP_NUMBER = '3146032055'
 const INSTAGRAM_HANDLE = 'BoraBoraGranizados'
 
 export default function StoreInfo() {

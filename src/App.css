@@ -210,16 +210,18 @@ main {
 }
 .cart-item .row1 {
   display: flex;
-  justify-content: space-between;
+  align-items: center;
   gap: 8px;
   margin-bottom: 4px;
 }
 .cart-item h3 {
+  flex: 1;
   font-family: 'Manrope';
   font-weight: 800;
   font-size: 13.5px;
 }
 .cart-item .price {
+  flex: none;
   font-size: 13px;
   display: flex;
   align-items: baseline;
@@ -230,6 +232,26 @@ main {
   font-weight: 600;
   color: var(--text-faint);
   text-decoration: line-through;
+}
+.cart-item-remove {
+  flex: none;
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  appearance: none;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-faint);
+  cursor: pointer;
+}
+.cart-item-remove .ico {
+  width: 14px;
+  height: 14px;
+}
+.cart-item-remove:hover {
+  border-color: var(--pink);
+  color: var(--pink);
 }
 .cart-item p {
   font-size: 11px;
