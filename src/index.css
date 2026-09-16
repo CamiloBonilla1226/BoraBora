@@ -20,3 +20,13 @@ body {
   display: flex;
   justify-content: center;
 }
+
+/* React mounts .app inside #root, unlike the static prototype where .app is
+   a direct child of <body>. Without an explicit width, #root (as a flex item
+   with the default overflow:visible) takes its content-based minimum width
+   instead of shrinking to the viewport, causing horizontal overflow below
+   430px — width:100% gives it a definite size so it clamps like .app does. */
+#root {
+  width: 100%;
+  min-width: 0;
+}
