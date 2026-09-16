@@ -317,3 +317,59 @@ main {
   color: var(--mint);
   font-variant-numeric: tabular-nums;
 }
+
+.cart-comment-group {
+  margin-top: 16px;
+}
+.cart-comment-label {
+  display: block;
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--text-faint);
+  margin-bottom: 6px;
+}
+.cart-comment {
+  width: 100%;
+  min-height: 64px;
+  resize: vertical;
+  font-family: 'Manrope', sans-serif;
+  font-size: 12.5px;
+  color: var(--text);
+  background: var(--elev-1);
+  border: 1px solid var(--border-strong);
+  padding: 10px;
+}
+.cart-comment::placeholder {
+  color: var(--text-faint);
+}
+.cart-comment:focus {
+  outline: none;
+  border-color: var(--mint);
+}
+
+.whatsapp-send-btn {
+  margin-top: 16px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  appearance: none;
+  border: 0;
+  text-decoration: none;
+  cursor: pointer;
+  font-family: 'Unbounded';
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  color: var(--mint-ink);
+  background: var(--mint);
+  padding: 14px 10px;
+}
+.whatsapp-send-btn .ico {
+  width: 18px;
+  height: 18px;
+  flex: none;
+}

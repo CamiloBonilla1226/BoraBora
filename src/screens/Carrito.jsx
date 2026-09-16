@@ -1,16 +1,24 @@
-import { useMemo } from 'react'
-import { IconCart, IconTrash } from '../components/Icons'
+import { useMemo, useState } from 'react'
+import { IconCart, IconTrash, IconWhatsapp } from '../components/Icons'
 import { useCart } from '../context/CartContext'
 import { fmt } from '../data/products'
 import { priceCartItems } from '../utils/promo'
 import { useNow } from '../utils/useNow'
+import { buildWhatsAppOrderLink } from '../utils/whatsapp'
+
+const COMMENT_MAX_LENGTH = 300
 
 export default function Carrito() {
   const { items, removeItem } = useCart()
   const now = useNow()
+  const [comment, setComment] = useState('')
 
   const pricedItems = useMemo(() => priceCartItems(items, now), [items, now])
   const total = useMemo(() => pricedItems.reduce((sum, item) => sum + item.finalPrice, 0), [pricedItems])
+  const whatsappLink = useMemo(
+    () => buildWhatsAppOrderLink(pricedItems, total, comment),
+    [pricedItems, total, comment],
+  )
 
   return (
     <section className="screen" id="tab-carrito">
@@ -62,7 +70,25 @@ export default function Carrito() {
               <span>Total del pedido</span>
               <b>{fmt(total)}</b>
             </div>
-            {/* Siguiente paso: flujo de pago y envío del pedido */}
+
+            <div className="cart-comment-group">
+              <label htmlFor="cart-comment" className="cart-comment-label">
+                Comentario (opcional)
+              </label>
+              <textarea
+                id="cart-comment"
+                className="cart-comment"
+                placeholder="Ej: sin pitillo, para recoger a las 7pm..."
+                maxLength={COMMENT_MAX_LENGTH}
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+              />
+            </div>
+
+            <a className="whatsapp-send-btn" href={whatsappLink} target="_blank" rel="noopener noreferrer">
+              <IconWhatsapp />
+              Enviar pedido por WhatsApp
+            </a>
           </>
         )}
       </div>

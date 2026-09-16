@@ -1,8 +1,8 @@
 import { IconLocation, IconWhatsapp, IconInstagram, IconClock } from '../Icons'
 import { SCHEDULE_TEXT } from '../../utils/schedule'
+import { WHATSAPP_NUMBER, buildWhatsAppContactLink } from '../../utils/whatsapp'
 import './StoreInfo.css'
 
-const WHATSAPP_NUMBER = '3146032055'
 const INSTAGRAM_HANDLE = 'BoraBoraGranizados'
 
 export default function StoreInfo() {
@@ -10,15 +10,10 @@ export default function StoreInfo() {
     <div className="store-info">
       <div className="store-row">
         <IconLocation />
-        <span>Barrio El Obando, carrera 20</span>
+        <span>Cra20 #7a-17, Barrio La Esmeralda</span>
       </div>
 
-      <a
-        className="store-row store-link"
-        href={`https://wa.me/57${WHATSAPP_NUMBER}`}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
+      <a className="store-row store-link" href={buildWhatsAppContactLink()} target="_blank" rel="noopener noreferrer">
         <IconWhatsapp />
         <span>WhatsApp · {WHATSAPP_NUMBER}</span>
       </a>
