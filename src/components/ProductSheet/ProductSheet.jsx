@@ -1,12 +1,14 @@
 import { useEffect, useRef, useState } from 'react'
 import CupArt from '../CupArt'
 import { PRODUCTS, fmt } from '../../data/products'
+import { useCart } from '../../context/CartContext'
 import './ProductSheet.css'
 
 const FOCUSABLE_SELECTOR =
   'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])'
 
-export default function ProductSheet({ productId, onClose, onAdd }) {
+export default function ProductSheet({ productId, onClose }) {
+  const { addItem } = useCart()
   const product = PRODUCTS[productId]
   const [selectedSize, setSelectedSize] = useState(
     product.sizes ? (product.sizes.find((s) => s.sel) ?? product.sizes[0]).l : null,
@@ -68,7 +70,7 @@ export default function ProductSheet({ productId, onClose, onAdd }) {
   }
 
   function handleAdd() {
-    onAdd({
+    addItem({
       productId: product.id,
       name: product.name,
       size: selectedSize,

@@ -1,7 +1,10 @@
 import { IconHome, IconMenu, IconCart } from '../Icons'
+import { useCart } from '../../context/CartContext'
 import './TabBar.css'
 
-export default function TabBar({ activeTab, onChangeTab, cartCount }) {
+export default function TabBar({ activeTab, onChangeTab }) {
+  const { count } = useCart()
+
   return (
     <nav className="tabbar">
       <button className={activeTab === 'inicio' ? 'active' : ''} onClick={() => onChangeTab('inicio')}>
@@ -14,8 +17,8 @@ export default function TabBar({ activeTab, onChangeTab, cartCount }) {
       </button>
       <button className={activeTab === 'carrito' ? 'active' : ''} onClick={() => onChangeTab('carrito')}>
         <IconCart />
-        <span className="tab-badge" hidden={cartCount === 0}>
-          {cartCount}
+        <span className="tab-badge" hidden={count === 0}>
+          {count}
         </span>
         <span>Carrito</span>
       </button>

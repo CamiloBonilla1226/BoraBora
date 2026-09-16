@@ -4,14 +4,13 @@ import TabBar from './components/TabBar'
 import ProductSheet from './components/ProductSheet'
 import Inicio from './screens/Inicio'
 import Menu from './screens/Menu'
-import CarritoScreen from './screens/CarritoScreen'
+import Carrito from './screens/Carrito'
 import './App.css'
 
 function App() {
   const [activeTab, setActiveTab] = useState('inicio')
   const [activeCategory, setActiveCategory] = useState('granizados')
   const [openProductId, setOpenProductId] = useState(null)
-  const [cart, setCart] = useState([])
 
   function changeTab(tab) {
     setActiveTab(tab)
@@ -23,10 +22,6 @@ function App() {
     changeTab('menu')
   }
 
-  function addToCart(item) {
-    setCart((prev) => [...prev, item])
-  }
-
   return (
     <div className="app">
       <TopBar />
@@ -36,14 +31,12 @@ function App() {
         {activeTab === 'menu' && (
           <Menu activeCategory={activeCategory} onChangeCategory={setActiveCategory} onOpenProduct={setOpenProductId} />
         )}
-        {activeTab === 'carrito' && <CarritoScreen cart={cart} />}
+        {activeTab === 'carrito' && <Carrito />}
       </main>
 
-      <TabBar activeTab={activeTab} onChangeTab={changeTab} cartCount={cart.length} />
+      <TabBar activeTab={activeTab} onChangeTab={changeTab} />
 
-      {openProductId && (
-        <ProductSheet productId={openProductId} onClose={() => setOpenProductId(null)} onAdd={addToCart} />
-      )}
+      {openProductId && <ProductSheet productId={openProductId} onClose={() => setOpenProductId(null)} />}
     </div>
   )
 }
