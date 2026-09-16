@@ -147,6 +147,16 @@
   cursor: not-allowed;
 }
 
+.sheet-promo-current {
+  flex: none;
+  margin: 0;
+  padding: 8px 16px;
+  background: var(--pink-soft);
+  border-top: 1px solid var(--border);
+  font-size: 11.5px;
+  color: var(--text);
+  line-height: 1.5;
+}
 .sheet-footer {
   flex: none;
   display: flex;
@@ -158,6 +168,10 @@
 }
 .sheet-footer .amt {
   flex: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 7px;
 }
 .sheet-footer .amt span {
   display: block;
@@ -166,11 +180,18 @@
   text-transform: uppercase;
   letter-spacing: 0.4px;
   color: var(--text-faint);
+  flex-basis: 100%;
 }
 .sheet-footer .amt b {
   font-size: 18px;
   color: var(--text);
   font-variant-numeric: tabular-nums;
+}
+.sheet-footer .amt .amt-was {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-faint);
+  text-decoration: line-through;
 }
 .add-btn {
   flex: 1;

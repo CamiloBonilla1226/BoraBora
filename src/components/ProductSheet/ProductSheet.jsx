@@ -1,16 +1,17 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import CupArt from '../CupArt'
 import { PRODUCTS, fmt } from '../../data/products'
 import { useCart } from '../../context/CartContext'
 import { useNow } from '../../utils/useNow'
 import { isPromoDay } from '../../utils/schedule'
+import { priceCartItems, PROMO_LABEL_HALF, PROMO_LABEL_FREE } from '../../utils/promo'
 import './ProductSheet.css'
 
 const FOCUSABLE_SELECTOR =
   'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])'
 
 export default function ProductSheet({ productId, onClose }) {
-  const { addItem } = useCart()
+  const { items, addItem } = useCart()
   const product = PRODUCTS[productId]
   const [selectedSize, setSelectedSize] = useState(
     product.sizes ? (product.sizes.find((s) => s.sel) ?? product.sizes[0]).l : null,
@@ -19,7 +20,21 @@ export default function ProductSheet({ productId, onClose }) {
   const [added, setAdded] = useState(false)
 
   const now = useNow()
-  const showPromoNote = product.category === 'granizados' && isPromoDay(now)
+  const promoActiveToday = product.category === 'granizados' && isPromoDay(now)
+
+  // Para cada tamaño, simula agregarlo al carrito tal como está ahora y ve
+  // qué le tocaría (precio completo, mitad de precio o gratis), para poder
+  // mostrarle al cliente cuál tamaño le conviene elegir.
+  const sizePromoPreview = useMemo(() => {
+    if (!promoActiveToday || !product.sizes) return {}
+    const preview = {}
+    for (const s of product.sizes) {
+      const candidate = { productId: product.id, size: s.l, adds: [], total: s.p }
+      const result = priceCartItems([...items, candidate], now)
+      preview[s.l] = result[result.length - 1].promoLabel
+    }
+    return preview
+  }, [promoActiveToday, product.sizes, product.id, items, now])
 
   const sheetRef = useRef(null)
   const closeBtnRef = useRef(null)
@@ -65,6 +80,18 @@ export default function ProductSheet({ productId, onClose }) {
     (product.sizes ? product.sizes.find((s) => s.l === selectedSize).p : product.base) +
     product.adds.filter((a) => selectedAdds.has(a.l)).reduce((sum, a) => sum + a.p, 0)
 
+  // Qué le tocaría a ESTE granizado (con el tamaño y las adiciones ya
+  // elegidas) si se agrega al carrito ahora mismo.
+  const currentPromo = useMemo(() => {
+    if (!promoActiveToday) return null
+    const candidate = { productId: product.id, size: selectedSize, adds: [], total }
+    const result = priceCartItems([...items, candidate], now)
+    return result[result.length - 1].promoLabel
+  }, [promoActiveToday, product.id, selectedSize, total, items, now])
+
+  const previewTotal =
+    currentPromo === PROMO_LABEL_FREE ? 0 : currentPromo === PROMO_LABEL_HALF ? Math.round(total * 0.5) : total
+
   function toggleAdd(label) {
     setSelectedAdds((prev) => {
       const next = new Set(prev)
@@ -84,7 +111,7 @@ export default function ProductSheet({ productId, onClose }) {
       total,
     })
     setAdded(true)
-    setTimeout(() => onClose(), 550)
+    setTimeout(() => setAdded(false), 1500)
   }
 
   return (
@@ -107,9 +134,9 @@ export default function ProductSheet({ productId, onClose }) {
           <div className="sheet-body">
             <div className="field-label">Qué trae</div>
             <p className="sheet-desc">{product.desc}</p>
-            {showPromoNote && (
+            {promoActiveToday && (
               <p className="sheet-promo-note">
-                🎉 Hoy en granizados: el 2do (igual o más chico) va a mitad de precio y el 3ro gratis.
+                🎉 Hoy en granizados: el 2do (igual o más pequeño) va a mitad de precio y el 3ro gratis.
               </p>
             )}
 
@@ -129,6 +156,8 @@ export default function ProductSheet({ productId, onClose }) {
                       onClick={() => setSelectedSize(s.l)}
                     >
                       {s.l} · {fmt(s.p)}
+                      {sizePromoPreview[s.l] === PROMO_LABEL_HALF && ' · 50%'}
+                      {sizePromoPreview[s.l] === PROMO_LABEL_FREE && ' · gratis'}
                     </button>
                   ))}
                 </div>
@@ -158,10 +187,18 @@ export default function ProductSheet({ productId, onClose }) {
             </div>
           </div>
         </div>
+        {currentPromo && (
+          <p className="sheet-promo-current">
+            {currentPromo === PROMO_LABEL_FREE
+              ? '🎉 Con esta selección, este granizado sale gratis.'
+              : '🎉 Con esta selección, este granizado sale a mitad de precio.'}
+          </p>
+        )}
         <div className="sheet-footer">
           <div className="amt">
             <span>Total</span>
-            <b>{fmt(total)}</b>
+            {currentPromo && <s className="amt-was">{fmt(total)}</s>}
+            <b>{fmt(previewTotal)}</b>
           </div>
           <button className="add-btn" onClick={handleAdd} disabled={!product.available || added}>
             {!product.available ? product.availLabel : added ? '¡Agregado!' : 'Agregar al carrito'}

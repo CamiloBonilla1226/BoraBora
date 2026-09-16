@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import { IconCart } from '../components/Icons'
 import { useCart } from '../context/CartContext'
 import { fmt } from '../data/products'
-import { priceCartItems, getPromoNudge } from '../utils/promo'
+import { priceCartItems } from '../utils/promo'
 import { useNow } from '../utils/useNow'
 
 export default function Carrito() {
@@ -11,7 +11,6 @@ export default function Carrito() {
 
   const pricedItems = useMemo(() => priceCartItems(items, now), [items, now])
   const total = useMemo(() => pricedItems.reduce((sum, item) => sum + item.finalPrice, 0), [pricedItems])
-  const promoNudge = useMemo(() => getPromoNudge(items, now), [items, now])
 
   return (
     <section className="screen" id="tab-carrito">
@@ -55,10 +54,6 @@ export default function Carrito() {
               <span>Total del pedido</span>
               <b>{fmt(total)}</b>
             </div>
-            {promoNudge && <p className="promo-nudge">🍧 {promoNudge}</p>}
-            <p className="cart-note">
-              Este carrito es un prototipo — el flujo de pago y envío del pedido se define en el siguiente paso.
-            </p>
             {/* Siguiente paso: flujo de pago y envío del pedido */}
           </>
         )}

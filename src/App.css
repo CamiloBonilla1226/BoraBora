@@ -272,21 +272,3 @@ main {
   color: var(--mint);
   font-variant-numeric: tabular-nums;
 }
-.promo-nudge {
-  margin-top: 14px;
-  padding: 9px 12px;
-  background: var(--pink-soft);
-  border: 1px solid var(--border);
-  font-size: 11.5px;
-  color: var(--text);
-  line-height: 1.5;
-  text-align: center;
-}
-.cart-note {
-  margin-top: 16px;
-  font-size: 11px;
-  color: var(--text-faint);
-  line-height: 1.6;
-  text-align: center;
-}
-
