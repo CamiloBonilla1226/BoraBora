@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from 'react'
 import CupArt from '../CupArt'
 import { PRODUCTS, fmt } from '../../data/products'
 import { useCart } from '../../context/CartContext'
+import { useNow } from '../../utils/useNow'
+import { isPromoDay } from '../../utils/schedule'
 import './ProductSheet.css'
 
 const FOCUSABLE_SELECTOR =
@@ -15,6 +17,9 @@ export default function ProductSheet({ productId, onClose }) {
   )
   const [selectedAdds, setSelectedAdds] = useState(new Set(product.adds.filter((a) => a.sel).map((a) => a.l)))
   const [added, setAdded] = useState(false)
+
+  const now = useNow()
+  const showPromoNote = product.category === 'granizados' && isPromoDay(now)
 
   const sheetRef = useRef(null)
   const closeBtnRef = useRef(null)
@@ -101,6 +106,11 @@ export default function ProductSheet({ productId, onClose }) {
           <div className="sheet-body">
             <div className="field-label">Qué trae</div>
             <p className="sheet-desc">{product.desc}</p>
+            {showPromoNote && (
+              <p className="sheet-promo-note">
+                🎉 Hoy en granizados: el 2do (igual o más chico) va a mitad de precio y el 3ro gratis.
+              </p>
+            )}
 
             {product.sizes && (
               <div className="group">

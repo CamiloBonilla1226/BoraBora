@@ -1,9 +1,17 @@
+import { useMemo } from 'react'
 import { IconCart } from '../components/Icons'
 import { useCart } from '../context/CartContext'
 import { fmt } from '../data/products'
+import { priceCartItems, getPromoNudge } from '../utils/promo'
+import { useNow } from '../utils/useNow'
 
 export default function Carrito() {
-  const { items, total } = useCart()
+  const { items } = useCart()
+  const now = useNow()
+
+  const pricedItems = useMemo(() => priceCartItems(items, now), [items, now])
+  const total = useMemo(() => pricedItems.reduce((sum, item) => sum + item.finalPrice, 0), [pricedItems])
+  const promoNudge = useMemo(() => getPromoNudge(items, now), [items, now])
 
   return (
     <section className="screen" id="tab-carrito">
@@ -23,7 +31,7 @@ export default function Carrito() {
           </div>
         ) : (
           <>
-            {items.map((item, i) => {
+            {pricedItems.map((item, i) => {
               const extra = []
               if (item.size) extra.push('Tamaño ' + item.size)
               if (item.adds.length) extra.push(item.adds.join(', '))
@@ -31,9 +39,15 @@ export default function Carrito() {
                 <div className="cart-item" key={i}>
                   <div className="row1">
                     <h3>{item.name}</h3>
-                    <div className="price">{fmt(item.total)}</div>
+                    <div className="price">
+                      {item.promoLabel && <span className="price-was">{fmt(item.total)}</span>}
+                      {fmt(item.finalPrice)}
+                    </div>
                   </div>
-                  <p>{extra.join(' · ') || 'Sin adiciones'}</p>
+                  <p>
+                    {extra.join(' · ') || 'Sin adiciones'}
+                    {item.promoLabel && <span className="promo-badge"> · {item.promoLabel}</span>}
+                  </p>
                 </div>
               )
             })}
@@ -41,6 +55,7 @@ export default function Carrito() {
               <span>Total del pedido</span>
               <b>{fmt(total)}</b>
             </div>
+            {promoNudge && <p className="promo-nudge">🍧 {promoNudge}</p>}
             <p className="cart-note">
               Este carrito es un prototipo — el flujo de pago y envío del pedido se define en el siguiente paso.
             </p>

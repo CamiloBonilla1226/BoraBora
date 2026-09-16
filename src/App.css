@@ -232,11 +232,24 @@ main {
 }
 .cart-item .price {
   font-size: 13px;
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+.cart-item .price-was {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-faint);
+  text-decoration: line-through;
 }
 .cart-item p {
   font-size: 11px;
   color: var(--text-dim);
   line-height: 1.5;
+}
+.promo-badge {
+  color: var(--pink);
+  font-weight: 700;
 }
 
 .cart-total {
@@ -258,6 +271,16 @@ main {
   font-size: 19px;
   color: var(--mint);
   font-variant-numeric: tabular-nums;
+}
+.promo-nudge {
+  margin-top: 14px;
+  padding: 9px 12px;
+  background: var(--pink-soft);
+  border: 1px solid var(--border);
+  font-size: 11.5px;
+  color: var(--text);
+  line-height: 1.5;
+  text-align: center;
 }
 .cart-note {
   margin-top: 16px;
