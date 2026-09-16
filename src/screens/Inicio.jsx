@@ -5,14 +5,15 @@ import { PRODUCTS, FEATURED_IDS, CATEGORIES } from '../data/products'
 import { useNow } from '../utils/useNow'
 import { isPromoDay } from '../utils/schedule'
 import { useDisponibilidad } from '../context/DisponibilidadContext'
+import { resolveProductAvailability } from '../utils/availability'
 import logo from '../assets/logo-borabora.png'
 
 export default function Inicio({ onOpenProduct, onGoToCategory }) {
   const now = useNow()
   const promoToday = isPromoDay(now)
   const { isAvailable } = useDisponibilidad()
-  const featuredProducts = FEATURED_IDS.filter((id) => isAvailable(id, PRODUCTS[id].available)).map(
-    (id) => PRODUCTS[id],
+  const featuredProducts = FEATURED_IDS.map((id) => resolveProductAvailability(PRODUCTS[id], isAvailable)).filter(
+    (product) => product.available,
   )
 
   return (

@@ -6,6 +6,7 @@ import { useDisponibilidad } from '../../context/DisponibilidadContext'
 import { useNow } from '../../utils/useNow'
 import { isPromoDay } from '../../utils/schedule'
 import { priceCartItems, PROMO_LABEL_HALF, PROMO_LABEL_FREE } from '../../utils/promo'
+import { resolveProductAvailability } from '../../utils/availability'
 import './ProductSheet.css'
 
 const FOCUSABLE_SELECTOR =
@@ -18,7 +19,7 @@ const DRAG_ANIMATION_MS = 220
 export default function ProductSheet({ productId, onClose }) {
   const { items, addItem } = useCart()
   const { isAvailable } = useDisponibilidad()
-  const product = PRODUCTS[productId]
+  const product = resolveProductAvailability(PRODUCTS[productId], isAvailable)
 
   // Adiciones que la hoja de disponibilidad (o, si no responde, el `av` de
   // products.js como respaldo) marca como activas — las demás ni siquiera
