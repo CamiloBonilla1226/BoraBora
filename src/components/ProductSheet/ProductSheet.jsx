@@ -75,6 +75,7 @@ export default function ProductSheet({ productId, onClose }) {
   }
 
   function handleAdd() {
+    if (!product.available) return
     addItem({
       productId: product.id,
       name: product.name,
@@ -162,8 +163,8 @@ export default function ProductSheet({ productId, onClose }) {
             <span>Total</span>
             <b>{fmt(total)}</b>
           </div>
-          <button className="add-btn" onClick={handleAdd}>
-            {added ? '¡Agregado!' : 'Agregar al carrito'}
+          <button className="add-btn" onClick={handleAdd} disabled={!product.available || added}>
+            {!product.available ? product.availLabel : added ? '¡Agregado!' : 'Agregar al carrito'}
           </button>
         </div>
       </div>

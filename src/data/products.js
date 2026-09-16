@@ -7,6 +7,40 @@ export const CATEGORIES = [
 
 export const FEATURED_IDS = ['mango', 'michBora', 'pecTropical']
 
+// Catálogo de adiciones por categoría: todos los granizados manejan las
+// mismas adiciones entre sí, igual que todas las micheladas y todas las
+// peceras — una sola lista compartida en vez de repetirla por producto.
+const GRANIZADOS_ADDS = [
+  { l: 'Gomitas', p: 1500, av: true },
+  { l: 'Chispas de chocolate', p: 1500, av: true },
+  { l: 'Caramelo', p: 2500, av: true },
+  { l: 'Fruta surtida', p: 2000, av: true },
+  { l: 'Sal de sabores extra', p: 1000, av: true },
+  { l: 'Chile en polvo', p: 1500, av: true },
+  { l: 'Perlas de fresa', p: 2500, av: false },
+  { l: 'Jeringa tequila', p: 5000, av: true },
+  { l: 'Jeringa vodka', p: 5000, av: true },
+  { l: 'Jeringa ron', p: 5000, av: true },
+]
+
+const MICHELADAS_ADDS = [
+  { l: 'Doble escarchado de tajín', p: 1000, av: true },
+  { l: 'Chamoy extra', p: 1000, av: true },
+  { l: 'Limón extra', p: 500, av: true },
+  { l: 'Mango', p: 1500, av: true },
+  { l: 'Piña', p: 1500, av: true },
+  { l: 'Fresa', p: 1500, av: true },
+  { l: 'Maracuyá', p: 1500, av: false },
+]
+
+const PECERAS_ADDS = [
+  { l: 'Piña adicional', p: 5000, av: true },
+  { l: 'Fresa adicional', p: 5000, av: true },
+  { l: 'Maracuyá adicional', p: 5000, av: false },
+  { l: 'Shot extra de ron', p: 6000, av: true },
+  { l: 'Shot extra de vodka', p: 6000, av: true },
+]
+
 export const PRODUCTS_BY_CATEGORY = {
   granizados: ['mora', 'mango', 'maracuya', 'tropical'],
   micheladas: ['michClasica', 'michBora'],
@@ -30,15 +64,7 @@ export const PRODUCTS = {
       { l: 'L', p: 23000 },
       { l: 'XL', p: 36500 },
     ],
-    adds: [
-      { l: 'Gomitas', p: 1500, av: true },
-      { l: 'Chispas de chocolate', p: 1500, av: true },
-      { l: 'Caramelo', p: 2500, av: true },
-      { l: 'Perlas de fresa', p: 2500, av: false },
-      { l: 'Jeringa tequila', p: 5000, av: true },
-      { l: 'Jeringa vodka', p: 5000, av: true },
-      { l: 'Jeringa ron', p: 5000, av: true },
-    ],
+    adds: GRANIZADOS_ADDS,
   },
   mango: {
     id: 'mango',
@@ -55,15 +81,7 @@ export const PRODUCTS = {
       { l: 'L', p: 23000 },
       { l: 'XL', p: 36500 },
     ],
-    adds: [
-      { l: 'Gomitas', p: 1500, av: true },
-      { l: 'Sal de sabores extra', p: 1000, av: true },
-      { l: 'Chile en polvo', p: 1500, av: true },
-      { l: 'Perlas de fresa', p: 2500, av: false },
-      { l: 'Jeringa tequila', p: 5000, av: true },
-      { l: 'Jeringa vodka', p: 5000, av: true },
-      { l: 'Jeringa ron', p: 5000, av: true },
-    ],
+    adds: GRANIZADOS_ADDS,
   },
   maracuya: {
     id: 'maracuya',
@@ -80,15 +98,7 @@ export const PRODUCTS = {
       { l: 'L', p: 23000 },
       { l: 'XL', p: 36500 },
     ],
-    adds: [
-      { l: 'Gomitas', p: 1500, av: true },
-      { l: 'Chispas de chocolate', p: 1500, av: true },
-      { l: 'Caramelo', p: 2500, av: true },
-      { l: 'Perlas de fresa', p: 2500, av: false },
-      { l: 'Jeringa tequila', p: 5000, av: true },
-      { l: 'Jeringa vodka', p: 5000, av: true },
-      { l: 'Jeringa ron', p: 5000, av: true },
-    ],
+    adds: GRANIZADOS_ADDS,
   },
   tropical: {
     id: 'tropical',
@@ -105,11 +115,7 @@ export const PRODUCTS = {
       { l: 'L', p: 23000 },
       { l: 'XL', p: 36500 },
     ],
-    adds: [
-      { l: 'Gomitas', p: 1500, av: true },
-      { l: 'Fruta surtida', p: 2000, av: true },
-      { l: 'Caramelo', p: 2500, av: true },
-    ],
+    adds: GRANIZADOS_ADDS,
   },
   michClasica: {
     id: 'michClasica',
@@ -121,11 +127,7 @@ export const PRODUCTS = {
     contains: 'Tu cerveza, escarchado de sal y tajín, limón.',
     desc: 'Tu cerveza con escarchado de sal y tajín, limón al gusto.',
     base: 15000,
-    adds: [
-      { l: 'Doble escarchado de tajín', p: 1000, av: true },
-      { l: 'Chamoy extra', p: 1000, av: true },
-      { l: 'Limón extra', p: 500, av: true },
-    ],
+    adds: MICHELADAS_ADDS,
   },
   michBora: {
     id: 'michBora',
@@ -137,12 +139,7 @@ export const PRODUCTS = {
     contains: 'Cerveza + escarchado de tajín + elige 2 frutas.',
     desc: 'Cerveza con escarchado de tajín — arma tu michelada con las frutas que quieras.',
     base: 18000,
-    adds: [
-      { l: 'Mango', p: 1500, av: true },
-      { l: 'Piña', p: 1500, av: true },
-      { l: 'Fresa', p: 1500, av: true },
-      { l: 'Maracuyá', p: 1500, av: false },
-    ],
+    adds: MICHELADAS_ADDS,
   },
   pecTropical: {
     id: 'pecTropical',
@@ -154,11 +151,7 @@ export const PRODUCTS = {
     contains: 'Ron + jugos naturales — sirve 4, 4 pitillos.',
     desc: 'Ron con jugos naturales de fruta, decorada, con 4 pitillos para compartir.',
     base: 65000,
-    adds: [
-      { l: 'Piña adicional', p: 5000, av: true },
-      { l: 'Maracuyá adicional', p: 5000, av: false },
-      { l: 'Shot extra de ron', p: 6000, av: true },
-    ],
+    adds: PECERAS_ADDS,
   },
   pecExplosiva: {
     id: 'pecExplosiva',
@@ -170,10 +163,7 @@ export const PRODUCTS = {
     contains: 'Vodka + energizante + fruta — sirve 4.',
     desc: 'Vodka con energizante y fruta, con 4 pitillos para compartir.',
     base: 70000,
-    adds: [
-      { l: 'Fresa adicional', p: 5000, av: true },
-      { l: 'Shot extra de vodka', p: 6000, av: true },
-    ],
+    adds: PECERAS_ADDS,
   },
   shot: {
     id: 'shot',

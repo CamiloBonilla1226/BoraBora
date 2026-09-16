@@ -185,3 +185,8 @@
   background: var(--mint);
   padding: 14px 10px;
 }
+.add-btn:disabled {
+  cursor: not-allowed;
+  color: var(--text-faint);
+  background: var(--elev-2);
+}
