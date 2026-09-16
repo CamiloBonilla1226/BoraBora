@@ -13,34 +13,34 @@ export const FEATURED_IDS = ['mango', 'michBora', 'pecTropical', 'shot', 'maracu
 // mismas adiciones entre sí, igual que todas las micheladas y todas las
 // peceras — una sola lista compartida en vez de repetirla por producto.
 const GRANIZADOS_ADDS = [
-  { l: 'Gomitas', p: 1500, av: true },
-  { l: 'Chispas de chocolate', p: 1500, av: true },
-  { l: 'Caramelo', p: 2500, av: true },
-  { l: 'Fruta surtida', p: 2000, av: true },
-  { l: 'Sal de sabores extra', p: 1000, av: true },
-  { l: 'Chile en polvo', p: 1500, av: true },
-  { l: 'Perlas de fresa', p: 2500, av: false },
-  { l: 'Jeringa tequila', p: 5000, av: true },
-  { l: 'Jeringa vodka', p: 5000, av: true },
-  { l: 'Jeringa ron', p: 5000, av: true },
+  { id: 'add_gomitas', l: 'Gomitas', p: 1500, av: true },
+  { id: 'add_chispas_chocolate', l: 'Chispas de chocolate', p: 1500, av: true },
+  { id: 'add_caramelo', l: 'Caramelo', p: 2500, av: true },
+  { id: 'add_fruta_surtida', l: 'Fruta surtida', p: 2000, av: true },
+  { id: 'add_sal_sabores_extra', l: 'Sal de sabores extra', p: 1000, av: true },
+  { id: 'add_chile_polvo', l: 'Chile en polvo', p: 1500, av: true },
+  { id: 'add_perlas_fresa', l: 'Perlas de fresa', p: 2500, av: false },
+  { id: 'add_jeringa_tequila', l: 'Jeringa tequila', p: 5000, av: true },
+  { id: 'add_jeringa_vodka', l: 'Jeringa vodka', p: 5000, av: true },
+  { id: 'add_jeringa_ron', l: 'Jeringa ron', p: 5000, av: true },
 ]
 
 const MICHELADAS_ADDS = [
-  { l: 'Doble escarchado de tajín', p: 1000, av: true },
-  { l: 'Chamoy extra', p: 1000, av: true },
-  { l: 'Limón extra', p: 500, av: true },
-  { l: 'Mango', p: 1500, av: true },
-  { l: 'Piña', p: 1500, av: true },
-  { l: 'Fresa', p: 1500, av: true },
-  { l: 'Maracuyá', p: 1500, av: false },
+  { id: 'add_doble_escarchado_tajin', l: 'Doble escarchado de tajín', p: 1000, av: true },
+  { id: 'add_chamoy_extra', l: 'Chamoy extra', p: 1000, av: true },
+  { id: 'add_limon_extra', l: 'Limón extra', p: 500, av: true },
+  { id: 'add_mango', l: 'Mango', p: 1500, av: true },
+  { id: 'add_pina', l: 'Piña', p: 1500, av: true },
+  { id: 'add_fresa', l: 'Fresa', p: 1500, av: true },
+  { id: 'add_maracuya', l: 'Maracuyá', p: 1500, av: false },
 ]
 
 const PECERAS_ADDS = [
-  { l: 'Piña adicional', p: 5000, av: true },
-  { l: 'Fresa adicional', p: 5000, av: true },
-  { l: 'Maracuyá adicional', p: 5000, av: false },
-  { l: 'Shot extra de ron', p: 6000, av: true },
-  { l: 'Shot extra de vodka', p: 6000, av: true },
+  { id: 'add_pina_adicional', l: 'Piña adicional', p: 5000, av: true },
+  { id: 'add_fresa_adicional', l: 'Fresa adicional', p: 5000, av: true },
+  { id: 'add_maracuya_adicional', l: 'Maracuyá adicional', p: 5000, av: false },
+  { id: 'add_shot_extra_ron', l: 'Shot extra de ron', p: 6000, av: true },
+  { id: 'add_shot_extra_vodka', l: 'Shot extra de vodka', p: 6000, av: true },
 ]
 
 export const PRODUCTS_BY_CATEGORY = {
@@ -178,8 +178,8 @@ export const PRODUCTS = {
     desc: '1 onza de licor, servido con limón y sal.',
     base: 6000,
     adds: [
-      { l: 'Doble onza', p: 6000, av: true },
-      { l: 'Limón y sal extra', p: 500, av: true },
+      { id: 'add_doble_onza', l: 'Doble onza', p: 6000, av: true },
+      { id: 'add_limon_sal_extra', l: 'Limón y sal extra', p: 500, av: true },
     ],
   },
   botella: {
@@ -193,8 +193,8 @@ export const PRODUCTS = {
     desc: 'Botella de 750ml, servida con hielo y limón.',
     base: 55000,
     adds: [
-      { l: 'Gaseosa aparte', p: 8000, av: true },
-      { l: 'Vaso adicional', p: 2000, av: true },
+      { id: 'add_gaseosa_aparte', l: 'Gaseosa aparte', p: 8000, av: true },
+      { id: 'add_vaso_adicional', l: 'Vaso adicional', p: 2000, av: true },
     ],
   },
 }
