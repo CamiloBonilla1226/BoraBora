@@ -19,7 +19,6 @@ export default function Inicio({ onOpenProduct, onGoToCategory }) {
       <div className="sec-head">
         <div className="eyebrow">Carta digital</div>
         <h1>¿Granizado o miedo?</h1>
-        <p className="lead">Explora la carta por categoría o entra directo a lo más pedido.</p>
       </div>
 
       <div className="promo-teaser">

@@ -19,6 +19,17 @@ export default function FeaturedCarousel({ products, onOpen }) {
       if (frame) return
       frame = requestAnimationFrame(() => {
         frame = null
+        // El navegador no deja hacer scroll más allá del ancho real del
+        // carril, que casi nunca cae justo en un múltiplo de CARD_STEP —
+        // por eso al llegar al final se compara contra el scroll máximo en
+        // vez de seguir dividiendo por CARD_STEP, para que el último punto
+        // siempre quede encendido cuando se ve la última tarjeta.
+        const maxScrollLeft = track.scrollWidth - track.clientWidth
+        const lastIndex = products.length - 1
+        if (maxScrollLeft <= 0 || track.scrollLeft >= maxScrollLeft - 1) {
+          setActiveIndex(lastIndex)
+          return
+        }
         setActiveIndex(Math.round(track.scrollLeft / CARD_STEP))
       })
     }
@@ -28,10 +39,13 @@ export default function FeaturedCarousel({ products, onOpen }) {
       track.removeEventListener('scroll', onScroll)
       if (frame) cancelAnimationFrame(frame)
     }
-  }, [])
+  }, [products.length])
 
   function goTo(index) {
-    trackRef.current?.scrollTo({ left: index * CARD_STEP, behavior: 'smooth' })
+    const track = trackRef.current
+    if (!track) return
+    const maxScrollLeft = track.scrollWidth - track.clientWidth
+    track.scrollTo({ left: Math.min(index * CARD_STEP, maxScrollLeft), behavior: 'smooth' })
   }
 
   return (
