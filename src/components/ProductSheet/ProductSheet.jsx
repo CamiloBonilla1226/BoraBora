@@ -254,7 +254,7 @@ export default function ProductSheet({ productId, onClose }) {
             <p className="sheet-desc">{product.desc}</p>
             {promoActiveToday && (
               <p className="sheet-promo-note">
-                🎉 Hoy en granizados: el 2do (igual o más pequeño) va a mitad de precio y el 3ro gratis.
+                🎉 Hoy en granizados: comprando 1 recibes 50% off en un pequeño, y comprando 2 el pequeño es gratis.
               </p>
             )}
 

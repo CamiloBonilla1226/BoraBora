@@ -9,21 +9,28 @@ function sizeRank(size) {
   return SIZE_ORDER.indexOf(size)
 }
 
-export const PROMO_LABEL_HALF = '2do granizado · 50% off'
-export const PROMO_LABEL_FREE = '3er granizado · gratis'
+export const PROMO_LABEL_HALF = 'Granizado pequeño · 50% off'
+export const PROMO_LABEL_FREE = 'Granizado pequeño · gratis'
 
 /**
- * Promo de granizados (martes y miércoles, ver utils/schedule.js): cada 3
- * granizados en el carrito, el 1ro va a precio completo, el 2do a mitad de
- * precio y el 3ro gratis. Solo aplica a la categoría "granizados" — el resto
- * de productos (micheladas, peceras, licor) siempre van a precio completo.
+ * Promo de granizados (martes y miércoles, ver utils/schedule.js): por la
+ * compra de 1 granizado a precio completo, un granizado pequeño (S) va a
+ * mitad de precio; por la compra de 2 granizados a precio completo, el
+ * pequeño (S) va gratis (el beneficio de gratis reemplaza al de 50%, no se
+ * suman). El patrón se repite cada 2 granizados de precio completo. Solo
+ * aplica a la categoría "granizados" — el resto de productos (micheladas,
+ * peceras, licor) siempre van a precio completo.
  *
- * Regla de tamaños: el 2do/3er granizado rebajado nunca puede ser más grande
- * que el "primero" de su grupo de 3. Para garantizarlo sin importar el orden
- * en que se agregaron al carrito, los granizados se ordenan de más grande a
- * más pequeño antes de armar los grupos — así el más grande de cada grupo
- * siempre queda de primero, a precio completo, y los descuentos solo caen
- * sobre granizados de su mismo tamaño o menores.
+ * Regla de tamaños: el descuento SOLO puede caer sobre un granizado de
+ * tamaño S — un granizado más grande nunca se rebaja. Para que los
+ * granizados grandes siempre cuenten como "precio completo" antes que
+ * cualquier S del carrito, se ordenan de más grande a más pequeño antes de
+ * armar los grupos.
+ *
+ * Los granizados se agrupan de a 3 en orden: los 2 primeros de cada grupo
+ * van a precio completo y el 3ro (si es talla S) sale gratis. Si al cliente
+ * le queda un grupo incompleto de solo 2 granizados al final, el 1ro va a
+ * precio completo y el 2do (si es talla S) sale a mitad de precio.
  *
  * Devuelve los items del carrito con `finalPrice` (precio ya con la promo
  * aplicada) y `promoLabel` (texto del descuento, o null si no aplica).
@@ -45,12 +52,18 @@ export function priceCartItems(items, now = new Date()) {
     })
 
   const promoByIndex = new Map()
-  granizadoIndexes.forEach(({ index }, position) => {
-    const positionInGroup = position % 3
-    if (positionInGroup === 1) {
-      promoByIndex.set(index, { multiplier: 0.5, label: PROMO_LABEL_HALF })
-    } else if (positionInGroup === 2) {
+  const total = granizadoIndexes.length
+  granizadoIndexes.forEach(({ item, index }, position) => {
+    if (item.size !== 'S') return
+
+    const groupStart = Math.floor(position / 3) * 3
+    const groupSize = Math.min(3, total - groupStart)
+    const positionInGroup = position - groupStart
+
+    if (groupSize === 3 && positionInGroup === 2) {
       promoByIndex.set(index, { multiplier: 0, label: PROMO_LABEL_FREE })
+    } else if (groupSize === 2 && positionInGroup === 1) {
+      promoByIndex.set(index, { multiplier: 0.5, label: PROMO_LABEL_HALF })
     }
   })
 

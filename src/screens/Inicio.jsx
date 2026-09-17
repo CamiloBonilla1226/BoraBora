@@ -35,7 +35,7 @@ export default function Inicio({ onOpenProduct, onGoToCategory }) {
               ? 'Martes y miércoles de promo'
               : 'Recuerda que los martes y miércoles hay promo'}
           </strong>
-          <span>2do granizado a mitad de precio y el 3ro gratis</span>
+          <span>Comprando 1 granizado, 50% off en uno pequeño · comprando 2, el pequeño es gratis</span>
         </span>
       </div>
 

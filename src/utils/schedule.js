@@ -1,7 +1,7 @@
 // Reglas de negocio del horario y la promo de BoraBora.
 // Si el horario real cambia, este es el único lugar que hay que tocar.
 
-/** Días de promo (2do granizado al 50%): martes y miércoles. */
+/** Días de promo (50% o gratis en un granizado pequeño): martes y miércoles. */
 const PROMO_DAYS = [2, 3] // 0=domingo, 1=lunes, 2=martes, 3=miércoles...
 
 /** Jueves, viernes, sábado y domingo abren hasta la 1am (horario extendido). */
