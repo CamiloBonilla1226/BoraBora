@@ -147,7 +147,47 @@ main {
   margin-bottom: 6px;
 }
 
-/* ================= MENU (sub-tabs) ================= */
+/* ================= MENU (buscador y sub-tabs) ================= */
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--border-strong);
+  background: var(--elev-1);
+  padding: 0 12px;
+  margin-bottom: 14px;
+}
+.search-box .ico {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  color: var(--text-faint);
+}
+.search-input {
+  flex: 1;
+  min-width: 0;
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  font-family: 'Manrope', sans-serif;
+  font-size: 13px;
+  padding: 11px 0;
+}
+.search-input::placeholder {
+  color: var(--text-faint);
+}
+.search-input:focus {
+  outline: none;
+}
+.menu-empty {
+  font-size: 12px;
+  color: var(--text-faint);
+  text-align: center;
+  padding: 24px 12px;
+  line-height: 1.6;
+}
+
 .subtabs {
   display: flex;
   border: 1px solid var(--border-strong);
@@ -155,6 +195,10 @@ main {
 }
 .subtabs button {
   flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   appearance: none;
   border: 0;
   border-right: 1px solid var(--border-strong);

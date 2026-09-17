@@ -2,11 +2,11 @@ import { IconHome, IconMenu, IconCart } from '../Icons'
 import { useCart } from '../../context/CartContext'
 import './TabBar.css'
 
-export default function TabBar({ activeTab, onChangeTab }) {
+export default function TabBar({ activeTab, onChangeTab, swipeHandlers }) {
   const { count } = useCart()
 
   return (
-    <nav className="tabbar">
+    <nav className="tabbar" {...swipeHandlers}>
       <button className={activeTab === 'inicio' ? 'active' : ''} onClick={() => onChangeTab('inicio')}>
         <IconHome />
         <span>Inicio</span>
